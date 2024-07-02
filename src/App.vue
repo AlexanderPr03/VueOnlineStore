@@ -1,16 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
+  <label for="showAllProducts">Afiseaza toate produsele</label>
+
+  <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import ContainerComponent from './components/ContainerComponent.vue'
+
 
 @Options({
   components: {
-    HelloWorld,
+    ContainerComponent
   },
+  methods: {
+    handleAddingToCart(id) {
+      // cod care adauga id-ul produslui la shopping cart
+      
+    }
+  },
+  data() {
+    return {
+      showAllProducts: false,
+    }
+  }
 })
 export default class App extends Vue {}
 </script>
