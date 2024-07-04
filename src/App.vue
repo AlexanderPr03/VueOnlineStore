@@ -1,17 +1,11 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
-  <label for="showAllProducts">Afiseaza toate produsele</label>
-
-  <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" /> -->
-
-  <nav>
+  <nav class="nav-menu">
     <router-link to="/home">Homepage</router-link>
     <br>
     <router-link to="/about">About page</router-link>
   </nav>
 
-  <router-view></router-view>
+  <router-view></router-view> <!-- AboutView.vue -->
 </template>
 
 <script lang="ts">
@@ -45,6 +39,14 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
+}
+
+.nav-menu {
+  /* color: white;
+  width: 100%;
+  height: 100px;
+  display:flex;
+  background-color:black; */
 }
 </style>

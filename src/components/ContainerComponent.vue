@@ -94,7 +94,7 @@ export default class ContainerComponent extends Vue {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .container {
         display:flex;
         width: 100%;

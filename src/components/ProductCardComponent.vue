@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class='product-card'>
+    <div class='product-card' @click="goToProductPage">
         <img class="product-img" :src="img">
         <h3>{{ name }}</h3>
         <p>{{description}}</p>
@@ -27,6 +27,14 @@ import { Options, Vue } from 'vue-class-component';
 
             // Redirectionam din cadrul metodelor catre o ruta diferita
             this.$router.push('/cart');
+        },
+        goToProductPage() {
+            this.$router.push({
+                name: 'Product',
+                 params: {
+                    id: this.id
+                }
+            })
         }
     }
 })
@@ -40,9 +48,10 @@ export default class ProductCardComponent extends Vue {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .product-card {
         position: relative;
+        cursor: pointer;
         width:300px;
         height:400px;
         border: 1px solid black;
