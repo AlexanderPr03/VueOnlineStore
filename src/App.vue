@@ -1,9 +1,17 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
+  <!-- <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
   <label for="showAllProducts">Afiseaza toate produsele</label>
 
-  <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" />
+  <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" /> -->
+
+  <nav>
+    <router-link to="/home">Homepage</router-link>
+    <br>
+    <router-link to="/about">About page</router-link>
+  </nav>
+
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
@@ -16,10 +24,10 @@ import ContainerComponent from './components/ContainerComponent.vue'
     ContainerComponent
   },
   methods: {
-    handleAddingToCart(id) {
-      // cod care adauga id-ul produslui la shopping cart
+    // handleAddingToCart(id) {
+    //   // cod care adauga id-ul produslui la shopping cart
       
-    }
+    // }
   },
   data() {
     return {

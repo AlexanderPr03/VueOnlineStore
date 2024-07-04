@@ -23,7 +23,10 @@ import { Options, Vue } from 'vue-class-component';
     },
     methods: {
         addProductToCart() {
-            this.$emit('addedToCart', this.id)
+            this.$emit('addedToCart', this.id);
+
+            // Redirectionam din cadrul metodelor catre o ruta diferita
+            this.$router.push('/cart');
         }
     }
 })
