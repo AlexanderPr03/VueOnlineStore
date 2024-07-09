@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Importam vederile
 import HomeView from '../views/HomeView.vue';
-import ProductView from '@/views/ProductView.vue'
+import ProductView from '@/views/ProductView.vue';
+import AddProductView from '@/views/AddProductView.vue';
 // import AboutView from '@/views/AboutView.vue';
 // import CartView from '@/views/CartView.vue';
 
@@ -18,6 +19,11 @@ const routes = [
         path:'/product/:id',
         component: ProductView,
         name: 'Product'
+    },
+    {
+        path:'/addProduct',
+        component: AddProductView,
+        name: 'AddProduct'
     }
     // {
     //     path: '/about',

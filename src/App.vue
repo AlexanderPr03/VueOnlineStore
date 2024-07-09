@@ -3,6 +3,8 @@
     <router-link to="/home">Homepage</router-link>
     <br>
     <router-link to="/about">About page</router-link>
+    <br>
+    <router-link to="/addProduct">Add Product</router-link>
   </nav>
 
   <router-view></router-view> <!-- AboutView.vue -->

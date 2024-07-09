@@ -12,6 +12,7 @@
         
     </div>
     
+
     <!-- <div v-show="showAllProducts">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis libero sed eaque dolores, illo ullam reprehenderit illum minus reiciendis temporibus voluptate vero sequi rem! Perferendis, quam cum! Fuga, veritatis! Ipsa.</div> -->
     <!-- <footer v-html="footerContent"></footer> -->
 
@@ -28,6 +29,8 @@
 <script>
 import { Options, Vue } from 'vue-class-component';
 import ProductCardComponent from './ProductCardComponent.vue'
+import axios from 'axios';
+
 
 @Options({
     name: 'ContainerComponent',
@@ -37,7 +40,23 @@ import ProductCardComponent from './ProductCardComponent.vue'
     methods: {
         handleAddingToCart(id) {
             this.$emit('addedProductToCart', id);
-        }
+        },
+    },
+    created() {
+        // fetch('http://localhost:3000/produse')
+        //     .then(raspuns => raspuns.json())
+        //     .then(date => console.log(date));
+        axios.get('http://localhost:3000/produse')
+            .then(response => {
+                for (const produs of response.data) {
+                    this.products.push(produs)
+                }
+            });
+
+        // PUT - schimba total resursa
+        // PATCH - schimba partial ('peticim') resursa
+        // axios.put()
+        // axios.patch()
     },
     updated() {
         // alert('Containerul a fost actualizat')
@@ -50,40 +69,7 @@ import ProductCardComponent from './ProductCardComponent.vue'
     },
     data() {
         return {
-            products:[
-                {
-                    id: 0,
-                    name:"Samsung Galaxy S23+ 256 GB Light Pink",
-                    description: "6.6 | 50 MP | 8 GB | Dual SIM",
-                    price: "17499",
-                    image:'https://i.simpalsmedia.com/999.md/BoardImages/900x900/762ba5707197b0e84e94b49d9c88237a.jpg',
-                    stock: 0,
-                },
-                {
-                    id: 1,
-                    name:"Samsung Galaxy M34 128 GB Silver",
-                    description: "6.5 | 50 MP | 8 GB | Dual SIM",
-                    price: "4199",
-                    image:'https://darwin.md/images/product/2023/11/darwin-samsung-galaxy-m34-128-gb-silver-352597.webp',
-                    stock: 2
-                },
-                {
-                    id: 2,
-                    name:"Laptop Asus Vivobook Go 14 E1404FA Mixed Black",
-                    description: "14 | 8 GB | 512 GB | AMD Ryzen 5 7520U | VGA Integrată",
-                    price: "7990",
-                    image:'https://darwin.md/images/product/2024/01/darwin-laptop-asus-vivobook-go-14-e1404fa-mixed-black-390299.webp',
-                    stock: 13
-                },
-                {
-                    id: 3,
-                    name:"Ceas inteligent Xiaomi Watch S3 Black",
-                    description: "1.43 | 47 mm | Aliaj din aluminiu/ Cauciuc cu fluor | BHR7874GL",
-                    price: "2299",
-                    image:'https://darwin.md/images/product/2024/02/darwin-ceas-inteligent-xiaomi-watch-s3-black-424535.webp',
-                    stock: 3,
-                }
-            ],
+            products:[],
             footerContent: '<h2>© VueJS 2406</h2>',
             message:'text'
         }
@@ -102,6 +88,7 @@ export default class ContainerComponent extends Vue {
     .product-list {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-around;
         gap: 20px;
         list-style: none;
@@ -119,3 +106,10 @@ export default class ContainerComponent extends Vue {
 <!-- 2) Montarea Componentului -->
 <!-- 3) Actualizarea Componentului -->
 <!-- 4) Distrugerea Componentului -->
+
+
+<!-- fetch().then() -->
+<!-- .then() -->
+<!-- .catch() -->
+
+<!-- Promise.all(/* o lista de promisiuni */) -->
