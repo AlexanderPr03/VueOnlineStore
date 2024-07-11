@@ -4,7 +4,7 @@
     <br>
     <router-link to="/about">About page</router-link>
     <br>
-    <router-link to="/addProduct">Add Product</router-link>
+    <router-link to="/dashboard">Dashboard</router-link>
   </nav>
 
   <router-view></router-view> <!-- AboutView.vue -->

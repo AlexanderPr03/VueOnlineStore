@@ -18,17 +18,18 @@
             <input type="submit">
         </form>
     </div>
+    <button @click="handleLogout">Logout</button>
  </template>
    
  <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import axios from 'axios';
-
+import api from '@/api/api';
+import { logout } from '@/auth/auth';
 @Options({
 
     methods: {
-        sendProduct() {
-            axios.put('http://localhost:3000/produse', {
+        async sendProduct() {
+            const response = await api.addProduct({
                 "id": this.id,
                 "name": this.name,
                 "description": this.description,
@@ -40,7 +41,10 @@ import axios from 'axios';
             this.$router.push('/home');
             // axios.delete('http://localhost:3000/produse?id=6')
         },
-
+        handleLogout() {
+            logout();
+            this.$router.push({ name: "Home"});
+        }
         // updateProduct() {
         //     axios.
         // }
@@ -58,7 +62,7 @@ import axios from 'axios';
         }
     }
 })
- export default class AddProductView extends Vue {}
+ export default class Dashboard extends Vue {}
  </script>
  
  <style scoped>
