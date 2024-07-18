@@ -11,9 +11,10 @@
         </form>
     </div>
 
-
+    <!-- v-if - scoate un element din codul de HTML -->
+    <!-- v-show - ascunde elementul prin proprietatea display:none -->
     <div>
-        <form id="updateProduct" @submit.prevent="updateProduct">
+        <form  id="updateProduct" @submit.prevent="updateProduct">
             <input type="number" name="id" placeholder="id produs">
             <input type="submit">
         </form>
@@ -60,6 +61,9 @@ import { logout } from '@/auth/auth';
             image:null,
             stock:null,
         }
+    },
+    props: {
+        
     }
 })
  export default class Dashboard extends Vue {}

@@ -5,14 +5,14 @@
                 <ProductCardComponent                                                      
                     :name="produs.name" :description="produs.description" :price="produs.price"
                     :img="produs.image" :id="produs.id" 
-                    @addedToCart="handleAddingToCart" @click="incrementProduct"  
-                />
+                    @addedToCart="handleAddingToCart" @click="incrementProduct"  />
             </li>
         </ul>
         {{ productClicks }}
     </div>
     
     <button @click="stock++">Click</button>
+
 
     <!-- <div v-show="showAllProducts">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis libero sed eaque dolores, illo ullam reprehenderit illum minus reiciendis temporibus voluptate vero sequi rem! Perferendis, quam cum! Fuga, veritatis! Ipsa.</div> -->
     <!-- <footer v-html="footerContent"></footer> -->
@@ -72,7 +72,7 @@ import { useCounterStore } from '@/stores/counter';
         // fetch('http://localhost:3000/produse')
         //     .then(raspuns => raspuns.json())
         //     .then(date => console.log(date));
-        axios.get('http://localhost:3000/produse')
+        axios.get('http://localhost:3000/products')
             .then(response => {
                 for (const produs of response.data) {
                     this.products.push(produs)

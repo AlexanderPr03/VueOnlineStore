@@ -32,7 +32,8 @@ const routes = [
         component: Dashboard,
         name: 'Dashboard',
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            isDisabled: true
         }
     }
     // {

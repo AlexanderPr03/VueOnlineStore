@@ -9,20 +9,19 @@ const axiosInstance = axios.create({
 })
 
 const api = {
-
     // GET request pentru a prelua toate produsele
     getProducts() {
-        return axiosInstance.get('/produse')
+        return axiosInstance.get('/products')
     },
 
     // GET request pentru a prelua un singur produs
     getProduct(id:number) {
-        return axiosInstance.get(`/produse/${id}`);
+        return axiosInstance.get(`/products?id=${id}`);
     },
 
     // POST request pentru a crea un produs nou
     addProduct(produs:object) {
-        return axiosInstance.post('/produse', produs)
+        return axiosInstance.post('/products', produs)
     },
 
     // PUT request pentru a actualiza total un produs existent

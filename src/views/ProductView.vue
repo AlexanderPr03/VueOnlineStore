@@ -44,7 +44,7 @@ import api from '../api/api';
 
        try {
             const response = await api.getProduct(this.idProdus);
-            this.productData = response.data;
+            this.productData = response.data[0];
 
             this.name = this.productData.name;
             this.description = this.productData.description;

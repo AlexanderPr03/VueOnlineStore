@@ -7,7 +7,7 @@
     <router-link to="/dashboard">Dashboard</router-link>
   </nav>
 
-  <router-view></router-view> <!-- AboutView.vue -->
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
