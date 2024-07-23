@@ -1,4 +1,10 @@
 <template>
+
+    <button @click="currentComponent = 'ProductCardComponent'">Toggle Component</button>
+    <keep-alive>
+        <component :is="currentComponent" name="Produs!"></component>
+    </keep-alive>
+
     <div class="container">
         <div class="column">
             <img class="product-img" :src="image">
@@ -32,12 +38,18 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import api from '../api/api';
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import ProductCardComponent from '@/components/ProductCardComponent.vue';
 @Options({
     methods: {
         handleAddingToCart(id:number) {
         //   cod care adauga id-ul produslui la shopping cart
         
         }
+    },
+    components: {
+        ButtonComponent: ButtonComponent,
+        ProductCardComponent: ProductCardComponent
     },
     async created() {
        this.idProdus = this.$route.params.id;
@@ -66,7 +78,8 @@ import api from '../api/api';
             description:null,
             price:null,
             image:null,
-            stock:null
+            stock:null,
+            currentComponent: 'ButtonComponent'
         }
     }
 })

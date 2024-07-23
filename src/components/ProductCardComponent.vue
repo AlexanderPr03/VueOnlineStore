@@ -1,6 +1,8 @@
 <template lang="html">
     <div class='product-card' @click="goToProductPage">
-        <img class="product-img" :src="img">
+        <div class="product-img-div">
+            <img :style="{height: imgHeight + 'px'}" class="product-img" :src="img">
+        </div>
         <h3>{{ name }}</h3>
         <p>{{description}}</p>
         <h4>{{price}} MDL</h4>
@@ -14,6 +16,11 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
     name: 'ProductCardComponent',
+    data() {
+        return {
+            imgHeight: 100,
+        }
+    },
     props:{
         id: Number,
         name: String,
@@ -49,6 +56,7 @@ export default class ProductCardComponent extends Vue {
 </script>
 
 <style lang="css" scoped>
+
     .product-card {
         position: relative;
         cursor: pointer;
@@ -58,15 +66,17 @@ export default class ProductCardComponent extends Vue {
         transition: all 0.5s ease-in-out;
         border:1px solid black;
         border-radius:12px;
+        
+        /* &:hover {
+            transform: scale(1.05);
+        } */
+        .product-img-div {
+            width: 300px;
+            position: relative;
+        }
     }
-    .product-img {
-        width: auto;
-        height: 60%;
-        margin: auto;
-    }
-    .product-card:hover {
-        transform:scale(1.03);
-    }
+    
+   
     .cart-img {
         position: absolute;
         width: 35px;

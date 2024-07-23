@@ -1,23 +1,24 @@
 <template>
-  <nav class="nav-menu">
-    <router-link to="/home">Homepage</router-link>
-    <br>
-    <router-link to="/about">About page</router-link>
-    <br>
-    <router-link to="/dashboard">Dashboard</router-link>
-  </nav>
+  <NavbarComponent />
+  <!-- <ButtonComponent color="red" />
+  <ButtonComponent color="blue"/> -->
 
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import ContainerComponent from './components/ContainerComponent.vue'
-
+import NavbarComponent from './components/NavbarComponent.vue';
+// import ButtonComponent from './components/ButtonComponent.vue';
 
 @Options({
   components: {
-    ContainerComponent
+    ContainerComponent,
+    NavbarComponent,
+    // ButtonComponent
   },
   methods: {
     // handleAddingToCart(id) {
@@ -43,7 +44,9 @@ export default class App extends Vue {}
   color: #2c3e50;
 
 }
-
+main {
+  padding: 0 5%;
+}
 .nav-menu {
   /* color: white;
   width: 100%;
