@@ -1,9 +1,11 @@
 <template>
 
     <button @click="currentComponent = 'ProductCardComponent'">Toggle Component</button>
-    <keep-alive>
-        <component :is="currentComponent" name="Produs!"></component>
-    </keep-alive>
+    <ButtonComponent>
+        <template v-slot:default="slotProps">
+            <p>Mesaj de la elementul copil: {{ slotProps.mesaj }}</p>
+        </template>
+    </ButtonComponent>
 
     <div class="container">
         <div class="column">

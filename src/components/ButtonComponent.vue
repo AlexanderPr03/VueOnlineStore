@@ -1,7 +1,7 @@
 <template lang="html">
-    <button :class="culoareButon">
-        Text
-    </button>
+    <div>
+        <slot :mesaj="mesaj" ></slot>
+    </div>
 </template>
 
 <script>
@@ -18,6 +18,11 @@ import { Options, Vue } from 'vue-class-component';
                 'button-red': this.color === 'red',
                 'button-blue': this.color === 'blue'
             }
+        }
+    },
+    data() {
+        return {
+            mesaj: 'Hello from Button Component!'
         }
     }
    

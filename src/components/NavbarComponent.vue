@@ -1,15 +1,23 @@
 <template lang="html">
+
+
+
     <header>
         <nav>
             <ul class="menu-list">
                 <li>
-                    <Transition>
-                        <router-link
-                                    @mouseover="isHovered = true" 
-                                    @mouseleave="isHovered = false"
-                        class="menu-link" to="/home">Homepage</router-link>
+         
+                        <div class="box" @mouseover="isHovered = true" 
+                        @mouseleave="isHovered = false">
+                            <router-link
+                                :class="{ 'bouncy': isHovered }"
+                                class="menu-link box" to="/home">
+                                        Homepage
+                            </router-link> 
+                        </div>
+                        
                     
-                    </Transition>
+                 
                 </li>
                 <li>
                     <router-link
@@ -21,7 +29,7 @@
                     <router-link 
                         @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false"
-                    class="menu-link" to="/dashboard">Dashboard</router-link>
+                    class="menu-link box"  to="/dashboard">Dashboard</router-link>
                 </li>
             </ul>
         </nav>
@@ -73,6 +81,20 @@ export default class NavbarComponent extends Vue {
     .v-enter-to, .v-leave-to {
         transform: scale(1.0);
     }
+    /* @keyframes bounce {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+    .bouncy {
+        display: inline-block;
+        animation: bounce 0.2s;
+    } */
+
+
 </style>
 
 

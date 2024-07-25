@@ -4,7 +4,7 @@
         <label for="showAllProducts">Afiseaza toate produsele</label>
         <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" />
    </div>
-
+   
    <div class="container">
         <div class="row">
             <div class="col-5">
