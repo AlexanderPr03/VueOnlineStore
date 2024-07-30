@@ -12,7 +12,7 @@
                             <router-link
                                 :class="{ 'bouncy': isHovered }"
                                 class="menu-link box" to="/home">
-                                        Homepage
+                                        {{ $t('menu_link_1') }}
                             </router-link> 
                         </div>
                         
@@ -23,15 +23,23 @@
                     <router-link
                         @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false"
-                    class="menu-link" to="/about">About page</router-link>
+                    class="menu-link" to="/about">{{ $t('menu_link_2') }}</router-link>
                 </li>
                 <li>
                     <router-link 
                         @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false"
-                    class="menu-link box"  to="/dashboard">Dashboard</router-link>
+                    class="menu-link box"  to="/dashboard">{{ $t('menu_link_3') }}</router-link>
                 </li>
+                <li>
+                    <select v-model="locale" @change="changeLocale">
+                        <option value="ro">Română</option>
+                        <option value="en">Engleză</option>
+                    </select>
+                </li>
+                <p>{{ $tc('mere', nrMere, {count: nrMere} ) }}</p>
             </ul>
+            
         </nav>
     </header>
 </template>
@@ -44,6 +52,13 @@ import { Options, Vue } from 'vue-class-component';
     data() {
         return {
             isHovered: true,
+            locale: 'ro',
+            nrMere:1
+        }
+    },
+    methods: {
+        changeLocale() {
+            this.$i18n.locale = this.locale; 
         }
     }
 })

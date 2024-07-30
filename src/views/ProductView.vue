@@ -1,12 +1,7 @@
 <template>
 
     <button @click="currentComponent = 'ProductCardComponent'">Toggle Component</button>
-    <ButtonComponent>
-        <template v-slot:default="slotProps">
-            <p>Mesaj de la elementul copil: {{ slotProps.mesaj }}</p>
-        </template>
-    </ButtonComponent>
-
+    <ButtonComponent />
     <div class="container">
         <div class="column">
             <img class="product-img" :src="image">

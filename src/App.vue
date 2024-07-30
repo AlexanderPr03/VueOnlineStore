@@ -55,3 +55,7 @@ main {
   background-color:black; */
 }
 </style>
+
+
+
+<!-- i18n - internationalization -->
