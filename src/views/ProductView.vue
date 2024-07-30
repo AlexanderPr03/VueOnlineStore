@@ -1,7 +1,7 @@
 <template>
 
-    <button @click="currentComponent = 'ProductCardComponent'">Toggle Component</button>
-    <ButtonComponent />
+    <!-- <button @click="currentComponent = 'ProductCardComponent'">Toggle Component</button> -->
+    <!-- <ButtonComponent /> -->
     <div class="container">
         <div class="column">
             <img class="product-img" :src="image">

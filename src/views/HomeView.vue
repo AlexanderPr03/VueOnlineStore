@@ -1,4 +1,5 @@
 <template>
+    <IntroductionComponent />
    <div>
         <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
         <label for="showAllProducts">Afiseaza toate produsele</label>
@@ -17,11 +18,13 @@
   
 <script lang="ts">
 import ContainerComponent from '@/components/ContainerComponent.vue';
+import IntroductionComponent from '@/components/IntroductionComponent.vue';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
     components: {
-        ContainerComponent
+        ContainerComponent,
+        IntroductionComponent
     },
     methods: {
         handleAddingToCart(id:number) {

@@ -37,10 +37,15 @@
                         <option value="en">Engleză</option>
                     </select>
                 </li>
-                <p>{{ $tc('mere', nrMere, {count: nrMere} ) }}</p>
+                <!-- <p>{{ $tc('mere', nrMere, {count: nrMere} ) }}</p> -->
             </ul>
             
-        </nav>
+            <input :placeholder="$t('search_bar_text')" id="search-bar" type="search">
+            <div class="navbar-icons">
+                <img class="navbar-icon" src="../assets/shopping.png">
+                <img class="navbar-icon" src="../assets/user.png">
+            </div>
+    </nav>
     </header>
 </template>
 
@@ -76,6 +81,7 @@ export default class NavbarComponent extends Vue {
         display: flex;
         align-items: center;
         padding: 0 5%;
+        box-sizing: border-box;
     }
     .menu-list {
         display: flex;
@@ -109,7 +115,35 @@ export default class NavbarComponent extends Vue {
         animation: bounce 0.2s;
     } */
 
-
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        width: 100%;
+    }
+    #search-bar {
+        min-width: 200px;
+        width: 40vw;
+        height: 35px;
+        border: none;
+        border-radius: 12px;
+        font-size: 20px;
+        padding: 5px 10px;
+    }
+    .navbar-icons {
+        display: flex;
+        float: right;
+        align-items: center;
+        gap: 35px;
+        height: 10vh;
+        margin-right: 0;
+        margin-left: auto;
+    }
+    .navbar-icon {
+        height: 50%;
+        cursor: pointer;
+        filter: invert(1);
+    }
 </style>
 
 

@@ -6,18 +6,22 @@
   <main>
     <router-view></router-view>
   </main>
+
+  <FooterComponent />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import ContainerComponent from './components/ContainerComponent.vue'
 import NavbarComponent from './components/NavbarComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
 // import ButtonComponent from './components/ButtonComponent.vue';
 
 @Options({
   components: {
     ContainerComponent,
     NavbarComponent,
+    FooterComponent
     // ButtonComponent
   },
   methods: {
@@ -42,7 +46,8 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: black!important;
+  min-height: 100vh;
+
 }
 main {
   padding: 0 5%;
