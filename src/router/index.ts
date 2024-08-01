@@ -7,11 +7,16 @@ import ProductView from '@/views/ProductView.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import LoginView from '@/views/LoginView.vue'
 import { isAuthenticated } from '@/auth/auth';
+import SearchView from '@/views/SearchView.vue';
 // import AboutView from '@/views/AboutView.vue';
 // import CartView from '@/views/CartView.vue';
 
 
 const routes = [
+    {
+        path:'/',
+        redirect:'/home'
+    },
     {
         path: '/home',
         component: HomeView,
@@ -21,6 +26,11 @@ const routes = [
         path:'/product/:id',
         component: ProductView,
         name: 'Product'
+    },
+    {
+        path:'/search/:query',
+        component: SearchView,
+        name:'Search'
     },
     {
         path:'/login',

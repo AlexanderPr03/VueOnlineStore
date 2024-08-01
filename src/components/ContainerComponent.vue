@@ -3,7 +3,7 @@
         <ul class="product-list">
             <li v-for="produs of products" :key="produs.id" :class="[{ 'stock-none': (produs.stock==0 && !showAllProducts) }, {'transparent': (!produs.stock && showAllProducts) }]" >
                 <ProductCardComponent                                                      
-                    :name="produs.name" :description="produs.description" :price="produs.price"
+                    :name="produs.title" :description="produs.description" :price="produs.price"
                     :img="produs.image" :id="produs.id" 
                     @addedToCart="handleAddingToCart" @click="incrementProduct"  />
             </li>

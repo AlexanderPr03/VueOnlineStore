@@ -6,7 +6,7 @@
         <nav>
             <ul class="menu-list">
                 <li>
-         
+
                         <div class="box" @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false">
                             <router-link
@@ -40,7 +40,9 @@
                 <!-- <p>{{ $tc('mere', nrMere, {count: nrMere} ) }}</p> -->
             </ul>
             
-            <input :placeholder="$t('search_bar_text')" id="search-bar" type="search">
+            <input :placeholder="$t('search_bar_text')" id="search-bar" type="search" @keyup.enter="searchProduct" v-model="searchQuery">
+
+
             <div class="navbar-icons">
                 <img class="navbar-icon" src="../assets/shopping.png">
                 <img class="navbar-icon" src="../assets/user.png">
@@ -58,12 +60,17 @@ import { Options, Vue } from 'vue-class-component';
         return {
             isHovered: true,
             locale: 'ro',
-            nrMere:1
+            nrMere:1,
+            searchQuery:''
         }
     },
     methods: {
         changeLocale() {
             this.$i18n.locale = this.locale; 
+        },
+        searchProduct() {
+
+            this.$router.replace({ name: 'Search', params: { query:this.searchQuery } })
         }
     }
 })
