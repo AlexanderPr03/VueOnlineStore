@@ -28,9 +28,9 @@ import ProductCardComponent from '@/components/ProductCardComponent.vue';
     created() {
         this.search();
     },
-    beforeRouteUpdate(to, from, next) {
+    // beforeRouteUpdate(to, from, next) {
         
-    },
+    // },
     // updated() {
     //     this.search();
     // },

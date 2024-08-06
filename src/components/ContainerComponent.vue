@@ -1,10 +1,24 @@
 <template lang="html">
     <div class="container">
+        <select v-model="criteriuSortare" @change="sorteazaProduse">
+            <option value="title">Titlu</option>
+            <option value="price">Preț</option>
+            <!-- <option value="description">Descriere</option> -->
+            <option value="rating.rate">Rating</option>
+            <option value="rating.count">Nr. de Ratinguri</option>
+        </select>
+
+        <select v-model="ordineSortare" @change="sorteazaProduse">
+            <option value="asc">Crescător</option>
+            <option value="desc">Descrescător</option>
+        </select>
         <ul class="product-list">
-            <li v-for="produs of products" :key="produs.id" :class="[{ 'stock-none': (produs.stock==0 && !showAllProducts) }, {'transparent': (!produs.stock && showAllProducts) }]" >
-                <ProductCardComponent                                                      
+            <li v-for="produs of produseSortate" :key="produs.id" :class="[{ 'stock-none': (produs.stock==0 && !showAllProducts) }, {'transparent': (!produs.stock && showAllProducts) }]" >
+                <ProductCardComponent                                                    
                     :name="produs.title" :description="produs.description" :price="produs.price"
                     :img="produs.image" :id="produs.id" 
+                    :rate="produs.rating.rate"
+                    :count="produs.rating.count"
                     @addedToCart="handleAddingToCart" @click="incrementProduct"  />
             </li>
         </ul>
@@ -43,7 +57,11 @@ import { useCounterStore } from '@/stores/counter';
         handleAddingToCart(id) {
             this.$emit('addedProductToCart', id);
         },
-        ...mapActions(useCounterStore, ['incrementProduct'])
+        ...mapActions(useCounterStore, ['incrementProduct']),
+
+        sorteazaProduse() {
+            // Funcție empty
+        }
     },
     props: {
         showAllProducts: {
@@ -58,7 +76,66 @@ import { useCounterStore } from '@/stores/counter';
         mesajInvers() {
             return this.mesaj.split('').reverse().join('');
         },
-        ...mapState(useCounterStore, ['productClicks'])
+        ...mapState(useCounterStore, ['productClicks']),
+
+        produseSortate() {
+            // Vom crea o copie a listei de produse, si o vom sorta
+
+            // Destructuram continutul listei products in interioriul unei liste noi
+            // create
+            return [...this.products].sort((a,b) => {
+                 let valoareSortare;
+
+                //  Determinam ordinea sortarii si utilizam o variabila
+                // valoareSortare pentru a stoca valoarea respectiva
+                 if (this.ordineSortare === 'asc') {
+                    valoareSortare = 1;
+                 } else {
+                    valoareSortare = -1;
+                 }
+
+                // Ne ocupam de proprietatile nested
+                if (this.criteriuSortare.includes('.')) {
+                    // Impartim criteriile in proprietatea principala si
+                    // subproprietate
+
+                    // rating.count => proprietatePrincipala = rating.  proprietateSecundara = count
+                    let [proprietatePrincipala, proprietateSecundara] = this.criteriuSortare.split('.');
+
+                    // Extragem valorile pe care le vom compara
+                    let valoareA = a[proprietatePrincipala][proprietateSecundara];
+                    let valoareB = b[proprietatePrincipala][proprietateSecundara];
+
+                    // Comparam valorile
+
+                    // a = 50, b = 25
+                    // 1
+                    if (valoareA > valoareB) {
+                        return valoareSortare * 1;
+                    } else if (valoareA < valoareB) {
+                        return valoareSortare * -1;
+                    } else {
+                        return 0;
+                    }
+
+                } else {
+                    // Pentru proprietatile directe ale obiectului
+                    let valoareA = a[this.criteriuSortare];
+                    let valoareB = b[this.criteriuSortare];
+
+                    // Facem comparatia
+                    // CRITERIUL DE SORTARE
+                    if (valoareA > valoareB) {
+                        return valoareSortare * 1;
+                    } else if (valoareA < valoareB) {
+                        return valoareSortare * -1;
+                    } else {
+                        return 0;
+                    }
+                }
+                
+            })
+        }
     },
     watch: {
         stock(valoareNoua, valoareVeche) {
@@ -69,33 +146,25 @@ import { useCounterStore } from '@/stores/counter';
         }
     },
     created() {
-        // fetch('http://localhost:3000/produse')
-        //     .then(raspuns => raspuns.json())
-        //     .then(date => console.log(date));
         axios.get('http://localhost:3000/products')
             .then(response => {
                 for (const produs of response.data) {
                     this.products.push(produs)
                 }
             });
-
-        // PUT - schimba total resursa
-        // PATCH - schimba partial ('peticim') resursa
-        // axios.put()
-        // axios.patch()
-    },
-    updated() {
-        // alert('Containerul a fost actualizat')
     },
     data() {
         return {
-            products:[],
             footerContent: '<h2>© VueJS 2406</h2>',
             message:'text',
             prenume: 'Alexandru',
             nume_familie: 'Prohnitchi',
             mesaj: 'Hello World',
-            stock: 8
+            stock: 8,
+
+            products:[],
+            criteriuSortare: 'title',
+            ordineSortare:'asc' // crescator/descrescator
         }
     },
    

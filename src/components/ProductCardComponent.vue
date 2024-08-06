@@ -3,9 +3,13 @@
         <div class="product-img-div">
             <img :style="{height: imgHeight + 'px'}" class="product-img" :src="img">
         </div>
-        <h3>{{ name }}</h3>
-        <p>{{description}}</p>
+        <h3>{{ name.substring(0, 30) }}... </h3>
+        <p>{{description.substring(0, 75)}}...</p>
         <h4>{{price}} MDL</h4>
+        <div class="rating">
+            <h5>Rating: {{ rate }} stele</h5>
+            <h5>Nr. Reviews: {{ count }}</h5>
+        </div>
         <img @click="addProductToCart" class="cart-img" src="../assets/shopping.png">
 
     </div>
@@ -27,6 +31,8 @@ import { Options, Vue } from 'vue-class-component';
         description: String,
         price: Number,
         img: String,
+        rate: Number,
+        count: Number
     },
     methods: {
         addProductToCart() {
@@ -66,17 +72,28 @@ export default class ProductCardComponent extends Vue {
         transition: all 0.5s ease-in-out;
         border:1px solid black;
         border-radius:12px;
-        
+
+        padding: 15px;
+        box-sizing: border-box;
         /* &:hover {
             transform: scale(1.05);
         } */
         .product-img-div {
-            width: 300px;
+   
             position: relative;
         }
     }
     
-   
+    .rating {
+        display: flex;
+        align-items: start;
+        width: 100%;
+        justify-content: space-between;
+
+        h5 {
+            margin: 0;
+        }
+    }
     .cart-img {
         position: absolute;
         width: 35px;
@@ -87,6 +104,5 @@ export default class ProductCardComponent extends Vue {
         border: 3px solid black;
         padding: 3px;
         border-radius: 12px;
-
     }
 </style>
