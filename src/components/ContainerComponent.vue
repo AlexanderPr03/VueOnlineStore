@@ -12,8 +12,21 @@
             <option value="asc">Crescător</option>
             <option value="desc">Descrescător</option>
         </select>
+
+        <select v-model="categorieSelectata" @change="filtreazaProduse">
+            <option value="men's clothing">Îmbrăcăminte bărbați</option>
+            <option value="women's clothing">Îmbrăcăminte femei</option>
+            <option value="jewelery">Bijuterii</option>
+            <option value="electronics">Electronica</option>
+        </select>
+
+        <label>Pret minim:</label>
+        <input type="number" placeholder="Pret minim" v-model="minPret" @input="filtreazaProduse">
+        <label>Pret maxim:</label>
+        <input type="number" placeholder="Pret maxim" v-model="maxPret" @input="filtreazaProduse">
+
         <ul class="product-list">
-            <li v-for="produs of produseSortate" :key="produs.id" :class="[{ 'stock-none': (produs.stock==0 && !showAllProducts) }, {'transparent': (!produs.stock && showAllProducts) }]" >
+            <li v-for="produs of produseFiltrateSiSortate" :key="produs.id" :class="[{ 'stock-none': (produs.stock==0 && !showAllProducts) }, {'transparent': (!produs.stock && showAllProducts) }]" >
                 <ProductCardComponent                                                    
                     :name="produs.title" :description="produs.description" :price="produs.price"
                     :img="produs.image" :id="produs.id" 
@@ -61,6 +74,9 @@ import { useCounterStore } from '@/stores/counter';
 
         sorteazaProduse() {
             // Funcție empty
+        },
+        filtreazaProduse() {
+            // Funcție
         }
     },
     props: {
@@ -78,12 +94,26 @@ import { useCounterStore } from '@/stores/counter';
         },
         ...mapState(useCounterStore, ['productClicks']),
 
-        produseSortate() {
+        produseFiltrateSiSortate() {
+            // Mai întâi vom filtra produsele, apoi le vom sorta
+
             // Vom crea o copie a listei de produse, si o vom sorta
 
             // Destructuram continutul listei products in interioriul unei liste noi
             // create
-            return [...this.products].sort((a,b) => {
+            let produseFiltrate = this.products.filter(produs => {
+                // Verificam daca vrem sa filtram produsele sau daca produsul face parte din categoria selectata
+                let verificareCategorie = (this.categorieSelectata === '' ) || (produs.category === this.categorieSelectata);
+
+                // Verificam daca pretul produsului se incadreaza in intervalul selectat
+                let verificarePret = (produs.price >= this.minPret) && (produs.price <= this.maxPret);
+
+                // Afisam produsul doar daca el respecta ambele criterii
+                return verificareCategorie && verificarePret;
+            })
+
+            // Sortare
+            return produseFiltrate.sort((a,b) => {
                  let valoareSortare;
 
                 //  Determinam ordinea sortarii si utilizam o variabila
@@ -162,9 +192,14 @@ import { useCounterStore } from '@/stores/counter';
             mesaj: 'Hello World',
             stock: 8,
 
+            // Sortare
             products:[],
             criteriuSortare: 'title',
-            ordineSortare:'asc' // crescator/descrescator
+            ordineSortare:'asc', // crescator/descrescator,
+            // Filtrare
+            categorieSelectata: '',
+            minPret: 0,
+            maxPret: Infinity
         }
     },
    
