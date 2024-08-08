@@ -13,6 +13,7 @@
 import { Options, Vue } from 'vue-class-component';
 import api from '@/api/api';
 import ProductCardComponent from '@/components/ProductCardComponent.vue';
+import { Product } from '@/types/types';
 @Options({
     name:'SearchView',
     components: {
@@ -25,30 +26,29 @@ import ProductCardComponent from '@/components/ProductCardComponent.vue';
             allProducts: []
         }
     },
-    created() {
+    async created() {
+        await this.loadProducts();
+        this.query = this.$route.params.query;
+
         this.search();
     },
-    // beforeRouteUpdate(to, from, next) {
-        
-    // },
-    // updated() {
-    //     this.search();
-    // },
+   
+    beforeRouteUpdate(to, from, next) {
+        this.query = to.params.query;
+        this.search();
+        next();
+    },
 
     methods: {
+        async loadProducts() {
+            const response = await api.getProducts();
+            this.allProducts = response.data;
+        },
         async search() {
             
-            this.query = this.$route.params.query;
-
-            this.allProducts = await api.getProducts();
-            
-            for (const product of this.allProducts.data) {
-                console.log(product)
-                if (product.title.toLowerCase().includes(this.query.toLowerCase())) {
-                    this.products.push(product);
-                }
-            }
-            console.log(this.products);
+            this.products = this.allProducts.filter((product: Product) =>
+                product.title.toLowerCase().includes(this.query.toLowerCase())
+            );
         }
     }
 })
