@@ -26,17 +26,17 @@ const api = {
 
     // PUT request pentru a actualiza total un produs existent
     updateProduct(id:number, produs:object) {
-        return axiosInstance.put(`/produse/${id}`, produs);
+        return axiosInstance.put(`/products/${id}`, produs);
     },
 
     // PATCH request pentru a actualiza parțial un produs
     patchProduct(id:number, produs:object) {
-        return axiosInstance.patch(`/produse/${id}`, produs);
+        return axiosInstance.patch(`/products/${id}`, produs);
     },
 
     // DELETE request pentru a șterge produsul
     deleteProduct(id:number) {
-        return axiosInstance.delete(`/produse/${id}`);
+        return axiosInstance.delete(`/products/${id}`);
     }
 }
 

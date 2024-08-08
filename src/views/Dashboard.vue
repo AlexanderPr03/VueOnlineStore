@@ -1,5 +1,6 @@
 <template>
-    <div id="container">
+    <h1>Adăugare Produs</h1>
+    <div class="container">
         <form id="addProduct" @submit.prevent="sendProduct">
             <input type="number" name="id" placeholder="Id Produs" v-model="id">
             <input type="text" name="title" placeholder="Nume Produs" v-model="name">
@@ -13,10 +14,19 @@
 
     <!-- v-if - scoate un element din codul de HTML -->
     <!-- v-show - ascunde elementul prin proprietatea display:none -->
-    <div>
-        <form  id="updateProduct" @submit.prevent="updateProduct">
-            <input type="number" name="id" placeholder="id produs">
-            <input type="submit">
+    <h1>Actualizare Produs</h1>
+    <div class="container">
+        <form id="updateProduct" @submit.prevent="updateProduct">
+            <select v-model="updateId" @change="loadProductDetails">
+                <option v-for="product of products" :key="product.id" :value="product.id">{{ product.id }} - {{ product.title }}</option>
+            </select>
+            <input v-model="updateName" type="text" name="title" placeholder="Nume produs">
+            <input v-model="updateDescription" type="text" name="description" placeholder="Descriere produs">
+            <input v-model="updatePrice" type="number" name="price" placeholder="Pret">
+            <input v-model="updateImage" type="text" name="image" placeholder="Imagine">
+            <input v-model="updateStock" type="number" name="stock" placeholder="Stock (Cantitate)">
+
+            <input type="submit" value="Actualizeaza produs">
         </form>
     </div>
     <button @click="handleLogout">Logout</button>
@@ -27,8 +37,36 @@ import { Options, Vue } from 'vue-class-component';
 import api from '@/api/api';
 import { logout } from '@/auth/auth';
 @Options({
-
+    created() {
+        this.fetchProducts();
+    },
     methods: {
+        async fetchProducts() {
+            const response = await api.getProducts();
+            this.products = response.data;
+        },
+        async loadProductDetails() {
+            const response = await api.getProduct(this.updateId);
+            const product = response.data[0];
+            this.updateName = product.title;
+            this.updateDescription = product.description;
+            this.updatePrice = product.price;
+            this.updateImage = product.image;
+
+        },
+        async updateProduct() {
+            const response = await api.patchProduct(this.updateId, {
+                title:this.updateName,
+                description: this.updateDescription,
+                price:this.updatePrice,
+                image: this.updateImage,
+            });
+           if (response.status === 200) {
+            alert('Produsul a fost actualizat cu succes!');
+           } else {
+            alert('A aparut o eroare');
+           }
+        },
         async sendProduct() {
             const response = await api.addProduct({
                 "id": this.id,
@@ -46,20 +84,29 @@ import { logout } from '@/auth/auth';
             logout();
             this.$router.push({ name: "Home"});
         }
-        // updateProduct() {
-        //     axios.
-        // }
 
 
     },
     data() {
         return {
+            //lista produselor de pe server
+            products: [],
+            // valorile pentru crearea produselor
             id:null,
             name:null,
             description:null,
             price:null,
             image:null,
             stock:null,
+
+            // valorile pentru actualizarea produselor
+            updateId:null,
+            updateName:null,
+            updateDescription:null,
+            updatePrice:null,
+            updateImage:null,
+            updateStock:null
+
         }
     },
     props: {
@@ -70,12 +117,12 @@ import { logout } from '@/auth/auth';
  </script>
  
  <style scoped>
-#container {
+.container {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-#addProduct {
+#addProduct, #updateProduct {
     margin-top: 50px;
     width: 400px;
     height: auto;
@@ -87,7 +134,7 @@ import { logout } from '@/auth/auth';
     border-radius: 12px;
     border: 1px solid black;
 }
-#addProduct input {
+#addProduct input, #updateProduct input, #updateProduct select {
     width: 100%;
     height: 40px;
     border: 3px solid black;
