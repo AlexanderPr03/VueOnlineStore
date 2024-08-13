@@ -1,8 +1,8 @@
 <template>
     <IntroductionComponent />
    <div>
-        <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
-        <label for="showAllProducts">Afiseaza toate produsele</label>
+        <!-- <input id="showAllProducts" type="checkbox" v-model="this.showAllProducts">
+        <label for="showAllProducts">Afiseaza toate produsele</label> -->
         <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" />
    </div>
    

@@ -10,11 +10,14 @@
   <FooterComponent />
 </template>
 
-<script lang="ts">
+<script>
 import { Options, Vue } from 'vue-class-component';
 import ContainerComponent from './components/ContainerComponent.vue'
 import NavbarComponent from './components/NavbarComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import { useCartStore } from '@/stores/cartStore';
+
+
 // import ButtonComponent from './components/ButtonComponent.vue';
 
 @Options({
@@ -29,6 +32,10 @@ import FooterComponent from './components/FooterComponent.vue';
     //   // cod care adauga id-ul produslui la shopping cart
       
     // }
+  },
+  created() {
+    let cartStore = useCartStore();
+    cartStore.loadCart();
   },
   data() {
     return {

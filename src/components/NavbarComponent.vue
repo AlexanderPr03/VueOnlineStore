@@ -6,7 +6,6 @@
         <nav>
             <ul class="menu-list">
                 <li>
-
                         <div class="box" @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false">
                             <router-link
@@ -23,7 +22,7 @@
                     <router-link
                         @mouseover="isHovered = true" 
                         @mouseleave="isHovered = false"
-                    class="menu-link" to="/about">{{ $t('menu_link_2') }}</router-link>
+                    class="menu-link" to="/blog">{{ $t('menu_link_2') }}</router-link>
                 </li>
                 <li>
                     <router-link 
@@ -31,20 +30,22 @@
                         @mouseleave="isHovered = false"
                     class="menu-link box"  to="/dashboard">{{ $t('menu_link_3') }}</router-link>
                 </li>
-                <li>
-                    <select v-model="locale" @change="changeLocale">
-                        <option value="ro">Română</option>
-                        <option value="en">Engleză</option>
-                    </select>
-                </li>
+
                 <!-- <p>{{ $tc('mere', nrMere, {count: nrMere} ) }}</p> -->
             </ul>
             
             <input :placeholder="$t('search_bar_text')" id="search-bar" type="search" @keyup.enter="searchProduct" v-model="searchQuery">
 
+            <select class="language-selector" v-model="locale" @change="changeLocale">
+                        <option value="ro">Română</option>
+                        <option value="en">Engleză</option>
+                </select>
 
             <div class="navbar-icons">
-                <img class="navbar-icon" src="../assets/shopping.png">
+                <router-link to="/cart" class="navbar-cart">
+                    <img class="navbar-icon" src="../assets/shopping.png">
+                    <span id="itemQuantity">{{ cartItemCount }}</span>
+                </router-link>
                 <img class="navbar-icon" src="../assets/user.png">
             </div>
     </nav>
@@ -53,6 +54,7 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component';
+import { useCartStore } from '@/stores/cartStore';
 
 @Options({
     name: 'NavbarComponent',
@@ -71,6 +73,12 @@ import { Options, Vue } from 'vue-class-component';
         searchProduct() {
 
             this.$router.replace({ name: 'Search', params: { query:this.searchQuery } })
+        }
+    },
+    computed: {
+        cartItemCount() { 
+            const cartStore = useCartStore();
+            return cartStore.cartItemCount;
         }
     }
 })
@@ -98,7 +106,12 @@ export default class NavbarComponent extends Vue {
     }
     .menu-link {
         color: white;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
     }
+
     .v-enter-from, .v-leave-from {
         transform: scale(1.0);
     }
@@ -146,10 +159,39 @@ export default class NavbarComponent extends Vue {
         margin-right: 0;
         margin-left: auto;
     }
+    .navbar-cart {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
     .navbar-icon {
         height: 50%;
         cursor: pointer;
         filter: invert(1);
+    }
+    .language-selector {
+        background: black;
+        color: white;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    #itemQuantity {
+        width: 25px;
+        height: 25px;
+        box-sizing: content-box;
+        background-color: white;
+        color: black;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        left: 80%;
+        bottom: 50%;
     }
 </style>
 

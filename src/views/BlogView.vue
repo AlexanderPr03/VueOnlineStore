@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <section id="introduction">
         <carousel :items-to-show="1" :autoplay="3000" :wrapAround="true">
             <slide class="slide" v-for="slide in images" :key="slide" >
@@ -12,14 +12,14 @@
         </carousel>
     </section>
 </template>
-
-<script>
+  
+<script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 @Options({
-    name: 'IntroductionComponent',
+    name:'BlogView',
     data() {
         return {
             images: [
@@ -35,29 +35,10 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
         Slide,
         Pagination,
         Navigation,
-    },
-
-    methods: {
-
     }
 })
-export default class IntroductionComponent extends Vue {
-
-}
+export default class BlogView extends Vue {}
 </script>
 
-<style lang="css" scoped>
-   #introduction {
-    height: 80vh;
-    margin-bottom: 20px;
-   }
-   .slide {
-       
-   }
-</style>
-
-
-<!-- 1) Crearea componentului -->
-<!-- 2) Montarea Componentului -->
-<!-- 3) Actualizarea Componentului -->
-<!-- 4) Distrugerea Componentului -->
+<style></style>
+  

@@ -8,6 +8,8 @@ import Dashboard from '@/views/Dashboard.vue';
 import LoginView from '@/views/LoginView.vue'
 import { isAuthenticated } from '@/auth/auth';
 import SearchView from '@/views/SearchView.vue';
+import BlogView from '@/views/BlogView.vue';
+import CartView from '@/views/CartView.vue';
 // import AboutView from '@/views/AboutView.vue';
 // import CartView from '@/views/CartView.vue';
 
@@ -45,12 +47,17 @@ const routes = [
             requiresAuth: true,
             isDisabled: true
         }
+    },
+    {
+        path: '/blog',
+        component: BlogView,
+        name: 'Blog'
+    },
+    {
+        path:'/cart',
+        component: CartView,
+        name: 'Cart'
     }
-    // {
-    //     path: '/about',
-    //     component: AboutView,
-    //     name: 'About'
-    // },
     // {
     //     path: '/cart',
     //     component: CartView,

@@ -17,7 +17,7 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component';
-
+import { useCartStore } from '@/stores/cartStore';
 @Options({
     name: 'ProductCardComponent',
     data() {
@@ -36,10 +36,23 @@ import { Options, Vue } from 'vue-class-component';
     },
     methods: {
         addProductToCart() {
-            this.$emit('addedToCart', this.id);
+            let cartStore = useCartStore();
 
-            // Redirectionam din cadrul metodelor catre o ruta diferita
-            this.$router.push('/cart');
+            cartStore.addToCart({
+                id: this.id,
+                name: this.name,
+                description: this.description,
+                price: this.price,
+                img: this.img,
+                rate: this.rate,
+                count: this.count
+            });
+
+
+            console.log(cartStore.cart)
+            // this.$emit('addedToCart', this.id);
+            // // Redirectionam din cadrul metodelor catre o ruta diferita
+            // this.$router.push('/cart');
         },
         goToProductPage() {
             this.$router.push({

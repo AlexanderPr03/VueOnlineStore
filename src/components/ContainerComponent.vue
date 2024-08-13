@@ -35,10 +35,10 @@
                     @addedToCart="handleAddingToCart" @click="incrementProduct"  />
             </li>
         </ul>
-        {{ productClicks }}
+        <!-- {{ productClicks }} -->
     </div>
     
-    <button @click="stock++">Click</button>
+    <!-- <button @click="stock++">Click</button> -->
 
 
     <!-- <div v-show="showAllProducts">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis libero sed eaque dolores, illo ullam reprehenderit illum minus reiciendis temporibus voluptate vero sequi rem! Perferendis, quam cum! Fuga, veritatis! Ipsa.</div> -->
@@ -47,7 +47,7 @@
     <!-- V-cloak - va afisa un element ascuns până când restul instanței de Vue
      a fost compilată -->
      <div v-cloak></div>
-    {{ nume }}
+    <!-- {{ nume }} -->
     <!-- v-once - afiseaza componentul doar odata. Orice alta afisare consecutiva
      este oprita. -->
     <!-- <input v-model="message">
