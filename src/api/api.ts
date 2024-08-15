@@ -37,6 +37,35 @@ const api = {
     // DELETE request pentru a șterge produsul
     deleteProduct(id:number) {
         return axiosInstance.delete(`/products/${id}`);
+    },
+
+    getMessages() {
+        return axiosInstance.get('/messages')
+    },
+
+    // GET request pentru a prelua un singur produs
+    getMessage(id:number) {
+        return axiosInstance.get(`/messages?id=${id}`);
+    },
+
+    // POST request pentru a crea un produs nou
+    addMessage(mesaj:object) {
+        return axiosInstance.post('/messages', mesaj)
+    },
+
+    // PUT request pentru a actualiza total un produs existent
+    updateMessage(id:number, mesaj:object) {
+        return axiosInstance.put(`/messages/${id}`, mesaj);
+    },
+
+    // PATCH request pentru a actualiza parțial un produs
+    patchMessage(id:number, mesaj:object) {
+        return axiosInstance.patch(`/messages/${id}`, mesaj);
+    },
+
+    // DELETE request pentru a șterge produsul
+    deleteMessage(id:number) {
+        return axiosInstance.delete(`/messages/${id}`);
     }
 }
 

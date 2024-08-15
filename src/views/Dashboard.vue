@@ -29,6 +29,18 @@
             <input type="submit" value="Actualizeaza produs">
         </form>
     </div>
+
+    <h1>Mesaje primite:</h1>
+    <div class="container">
+        <ul v-if="messages.length > 0">
+            <li class="mesaj" v-for="message in messages" :key="message.id">
+                <p><b>{{ message.name }} ({{ message.email }}):</b> {{ message.message }}</p><button @click="deleteMessage(message.id)">Sterge mesajul.</button>
+            </li>
+        </ul>
+        <p v-else>Niciun mesaj primit.</p>
+    </div>
+
+
     <button @click="handleLogout">Logout</button>
  </template>
    
@@ -39,11 +51,16 @@ import { logout } from '@/auth/auth';
 @Options({
     created() {
         this.fetchProducts();
+        this.fetchMessages();
     },
     methods: {
         async fetchProducts() {
             const response = await api.getProducts();
             this.products = response.data;
+        },
+        async fetchMessages() {
+            const response = await api.getMessages();
+            this.messages = response.data;
         },
         async loadProductDetails() {
             const response = await api.getProduct(this.updateId);
@@ -80,6 +97,10 @@ import { logout } from '@/auth/auth';
             this.$router.push('/home');
             // axios.delete('http://localhost:3000/produse?id=6')
         },
+        async deleteMessage(id:any) {
+          const response = await api.deleteMessage(id);
+          this.fetchMessages();
+        },
         handleLogout() {
             logout();
             this.$router.push({ name: "Home"});
@@ -105,7 +126,10 @@ import { logout } from '@/auth/auth';
             updateDescription:null,
             updatePrice:null,
             updateImage:null,
-            updateStock:null
+            updateStock:null,
+            
+            // lista de mesaje de la utilizatori de pe server
+            messages:[],
 
         }
     },
@@ -141,6 +165,10 @@ import { logout } from '@/auth/auth';
     font-weight: bold;
     border-radius: 6px;
     padding-left: 10px;
+}
+.mesaj {
+    text-align: left;
+    font-size: 20px;
 }
 
 </style>

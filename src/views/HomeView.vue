@@ -6,25 +6,20 @@
         <ContainerComponent :showAllProducts="showAllProducts" @addedProductToCard="handleAddingToCart" />
    </div>
    
-   <div class="container">
-        <div class="row">
-            <div class="col-5">
-            
-            </div>
-            
-        </div>
-   </div>
+   <ContactFormComponent />
 </template>
   
 <script lang="ts">
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import IntroductionComponent from '@/components/IntroductionComponent.vue';
+import ContactFormComponent from '@/components/ContactFormComponent.vue';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
     components: {
         ContainerComponent,
-        IntroductionComponent
+        IntroductionComponent,
+        ContactFormComponent
     },
     methods: {
         handleAddingToCart(id:number) {
