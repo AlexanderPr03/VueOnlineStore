@@ -27,7 +27,10 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component';
-import api from '@/api/api';
+
+
+import { supabase } from '../lib/supabaseClient'
+
 
 
 @Options({
@@ -44,7 +47,7 @@ import api from '@/api/api';
     },
     methods: {
         async submitForm() {
-            const response = await api.addMessage(this.formData)
+            const response = await supabase.from('messages').insert([this.formData]);
             if (response.status === 200 || response.status === 201) {
                 this.successMessage = 'Mulțumim pentru mesaj! Vom reveni cu un răspuns în scurt timp.';
 

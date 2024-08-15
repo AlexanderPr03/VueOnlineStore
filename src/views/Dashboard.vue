@@ -48,6 +48,9 @@
 import { Options, Vue } from 'vue-class-component';
 import api from '@/api/api';
 import { logout } from '@/auth/auth';
+import { supabase } from '@/lib/supabaseClient';
+
+
 @Options({
     created() {
         this.fetchProducts();
@@ -59,7 +62,8 @@ import { logout } from '@/auth/auth';
             this.products = response.data;
         },
         async fetchMessages() {
-            const response = await api.getMessages();
+            const response = await supabase.from('messages').select();
+
             this.messages = response.data;
         },
         async loadProductDetails() {
