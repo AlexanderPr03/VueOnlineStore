@@ -4,8 +4,8 @@
             <option value="title">Titlu</option>
             <option value="price">Preț</option>
             <!-- <option value="description">Descriere</option> -->
-            <option value="rating.rate">Rating</option>
-            <option value="rating.count">Nr. de Ratinguri</option>
+            <option value="rating__rate">Rating</option>
+            <option value="rating__count">Nr. de Ratinguri</option>
         </select>
 
         <select v-model="ordineSortare" @change="sorteazaProduse">
@@ -30,8 +30,8 @@
                 <ProductCardComponent                                                    
                     :name="produs.title" :description="produs.description" :price="produs.price"
                     :img="produs.image" :id="produs.id" 
-                    :rate="produs.rating.rate"
-                    :count="produs.rating.count"
+                    :rate="produs.rating__rate"
+                    :count="produs.rating__count"
                     @addedToCart="handleAddingToCart" @click="incrementProduct"  />
             </li>
         </ul>
@@ -60,6 +60,7 @@ import ProductCardComponent from './ProductCardComponent.vue'
 import axios from 'axios';
 import { mapState, mapActions } from 'pinia';
 import { useCounterStore } from '@/stores/counter';
+import { supabase } from '@/lib/supabaseClient';
 
 @Options({
     name: 'ContainerComponent',
@@ -176,7 +177,7 @@ import { useCounterStore } from '@/stores/counter';
         }
     },
     created() {
-        axios.get('http://localhost:3000/products')
+        supabase.from('products').select()
             .then(response => {
                 for (const produs of response.data) {
                     this.products.push(produs)

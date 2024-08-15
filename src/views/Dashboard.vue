@@ -63,7 +63,6 @@ import { supabase } from '@/lib/supabaseClient';
         },
         async fetchMessages() {
             const response = await supabase.from('messages').select();
-
             this.messages = response.data;
         },
         async loadProductDetails() {
